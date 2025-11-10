@@ -1,0 +1,39 @@
+@model _Net.Models.Pago
+@{
+    ViewData["Title"] = "Nuevo Pago";
+}
+
+<h4>Nuevo Pago</h4>
+
+<form asp-action="Create" method="post" class="col-md-6">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="IdContrato" class="form-label"></label>
+        <select asp-for="IdContrato" class="form-select" asp-items="ViewBag.Contratos">
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="concepto" class="form-label"></label>
+        <input asp-for="concepto" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="importe" class="form-label"></label>
+        <input asp-for="importe" type="number" step="0.01" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Fecha" class="form-label"></label>
+        <input asp-for="Fecha" type="date" class="form-control" />
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="anulado" class="form-check-input" />
+        <label asp-for="anulado" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear</button>
+    <a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+</form>

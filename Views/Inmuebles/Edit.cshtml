@@ -1,0 +1,55 @@
+@model _Net.Models.Inmueble
+@{
+    ViewData["Title"] = "Editar Inmueble";
+}
+
+<h4>Editar Inmueble</h4>
+
+<form asp-action="Edit" method="post" class="col-md-6">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" asp-for="IdInmueble" />
+
+    <div class="mb-3">
+        <label asp-for="Direccion" class="form-label"></label>
+        <input asp-for="Direccion" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Tipo" class="form-label"></label>
+        <select asp-for="Tipo" class="form-select" asp-items="ViewBag.Tipos"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Uso" class="form-label"></label>
+        <select asp-for="Uso" class="form-select" asp-items="ViewBag.Usos"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Ambientes" class="form-label"></label>
+        <input asp-for="Ambientes" type="number" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Latitud" class="form-label"></label>
+        <input asp-for="Latitud" type="number" step="0.000001" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Longitud" class="form-label"></label>
+        <input asp-for="Longitud" type="number" step="0.000001" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="IdPropietario" class="form-label"></label>
+        <select asp-for="IdPropietario" class="form-select" asp-items="ViewBag.Propietarios"></select>
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="Disponible" class="form-check-input" />
+        <label asp-for="Disponible" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+</form>

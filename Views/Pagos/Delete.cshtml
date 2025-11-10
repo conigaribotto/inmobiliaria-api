@@ -1,0 +1,33 @@
+@model _Net.Models.Pago
+@{
+    ViewData["Title"] = "Anular Pago";
+}
+
+<h4>Anular Pago</h4>
+
+<div class="alert alert-warning">
+    <strong>Atención:</strong> Esta acción marcará el pago como anulado.
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Contrato</dt>
+    <dd class="col-sm-9">@Model.IdContrato</dd>
+
+    <dt class="col-sm-3">Concepto</dt>
+    <dd class="col-sm-9">@Model.concepto</dd>
+
+    <dt class="col-sm-3">Importe</dt>
+    <dd class="col-sm-9">@Model.importe</dd>
+
+    <dt class="col-sm-3">Fecha de Pago</dt>
+    <dd class="col-sm-9">@Model.Fecha.ToShortDateString()</dd>
+
+    <dt class="col-sm-3">Anulado</dt>
+    <dd class="col-sm-9">@Model.anulado</dd>
+</dl>
+
+<form asp-action="ConfirmarEliminacion" method="post">
+    <input type="hidden" asp-for="IdPago" />
+    <button type="submit" class="btn btn-danger">Anular Pago</button>
+    <a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+</form>

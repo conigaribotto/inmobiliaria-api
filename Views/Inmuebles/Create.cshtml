@@ -1,0 +1,48 @@
+@model _Net.Models.Inmueble
+@{
+    ViewData["Title"] = "Nuevo Inmueble";
+}
+
+<h4>Nuevo Inmueble</h4>
+
+<form asp-action="Create" method="post" class="col-md-6">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Direccion" class="form-label"></label>
+        <input asp-for="Direccion" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Tipo" class="form-label"></label>
+        <select asp-for="Tipo" class="form-select" asp-items="ViewBag.Tipos"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Uso" class="form-label"></label>
+        <select asp-for="Uso" class="form-select" asp-items="ViewBag.Usos"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Ambientes" class="form-label"></label>
+        <input asp-for="Ambientes" type="number" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Latitud" class="form-label"></label>
+        <input asp-for="Latitud" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Longitud" class="form-label"></label>
+        <input asp-for="Longitud" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="IdPropietario" class="form-label"></label>
+        <select asp-for="IdPropietario" class="form-select" asp-items="ViewBag.Propietarios"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear</button>
+    <a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+</form>

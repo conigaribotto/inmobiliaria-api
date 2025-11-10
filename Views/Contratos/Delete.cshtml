@@ -1,0 +1,36 @@
+@model _Net.Models.Contrato
+@{
+    ViewData["Title"] = "Eliminar Contrato";
+}
+
+<h4>Eliminar Contrato</h4>
+
+<div class="alert alert-warning">
+    <strong>Atención:</strong> Esta acción marcará el contrato como no vigente.
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Inquilino</dt>
+    <dd class="col-sm-9">@Model.IdInquilino</dd>
+
+    <dt class="col-sm-3">Inmueble</dt>
+    <dd class="col-sm-9">@Model.IdInmueble</dd>
+
+    <dt class="col-sm-3">Fecha Inicio</dt>
+    <dd class="col-sm-9">@Model.FechaInicio.ToShortDateString()</dd>
+
+    <dt class="col-sm-3">Fecha Fin</dt>
+    <dd class="col-sm-9">@Model.FechaFin.ToShortDateString()</dd>
+
+    <dt class="col-sm-3">Valor Mensual</dt>
+    <dd class="col-sm-9">@Model.ValorMensual</dd>
+
+    <dt class="col-sm-3">Vigente</dt>
+    <dd class="col-sm-9">@Model.Vigente</dd>
+</dl>
+
+<form asp-action="ConfirmarEliminacion" method="post">
+    <input type="hidden" asp-for="IdContrato" />
+    <button type="submit" class="btn btn-danger">Marcar como no vigente</button>
+    <a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+</form>

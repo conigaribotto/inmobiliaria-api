@@ -1,0 +1,48 @@
+@model IEnumerable<_Net.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="text-center mb-3">
+    <h1 class="display-4">User List</h1>
+    <a class="btn btn-success" asp-action="Create">Nuevo usuario</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>@Html.DisplayNameFor(model => model.First().Email)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Rol)</th>
+            <th>Activo</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var usuario in Model)
+        {
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <img src="@Url.Content(string.IsNullOrEmpty(usuario.Avatar) ? "~/images/no-avatar.png" : usuario.Avatar)"
+                             alt="avatar" style="width:40px;height:40px;border-radius:50%;object-fit:cover;margin-right:8px" />
+                        <div>
+                            <div>@(string.IsNullOrEmpty(usuario.Nombre) ? usuario.Email : usuario.Nombre)</div>
+                            <small class="text-muted">(@usuario.IdUsuario)</small>
+                        </div>
+                    </div>
+                </td>
+                <td>@usuario.Email</td>
+                <td>@usuario.Rol</td>
+                <td>@(usuario.Activo ? "Sí" : "No")</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@usuario.IdUsuario">Edit</a>
+                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@usuario.IdUsuario">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

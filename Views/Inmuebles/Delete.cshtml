@@ -1,0 +1,36 @@
+@model _Net.Models.Inmueble
+@{
+    ViewData["Title"] = "Eliminar Inmueble";
+}
+
+<h4>Eliminar Inmueble</h4>
+
+<div class="alert alert-warning">
+    <strong>Atención:</strong> Esta acción marcará el inmueble como no disponible.
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Dirección</dt>
+    <dd class="col-sm-9">@Model.Direccion</dd>
+
+    <dt class="col-sm-3">Tipo</dt>
+    <dd class="col-sm-9">@Model.Tipo</dd>
+
+    <dt class="col-sm-3">Uso</dt>
+    <dd class="col-sm-9">@Model.Uso</dd>
+
+    <dt class="col-sm-3">Ambientes</dt>
+    <dd class="col-sm-9">@Model.Ambientes</dd>
+
+    <dt class="col-sm-3">Propietario</dt>
+    <dd class="col-sm-9">@Model.IdPropietario</dd>
+
+    <dt class="col-sm-3">Disponible</dt>
+    <dd class="col-sm-9">@Model.Disponible</dd>
+</dl>
+
+<form asp-action="ConfirmarEliminacion" method="post">
+    <input type="hidden" asp-for="IdInmueble" />
+    <button type="submit" class="btn btn-danger">Marcar como no disponible</button>
+    <a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+</form>

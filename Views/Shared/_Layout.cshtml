@@ -1,0 +1,103 @@
+﻿@using System.Security.Claims
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - _Net</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/_Net.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Inicio</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        @{
+                            var user = HttpContextAccessor.HttpContext?.User;
+                            var isLoggedIn = user?.Identity?.IsAuthenticated == true;
+                            var nombre = user?.FindFirst(ClaimTypes.Name)?.Value ?? "";
+                            var rol = user?.FindFirst(ClaimTypes.Role)?.Value;
+                            var idUsuario = user?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                            // Si guardaste avatar como claim al loguear:
+                            var avatarClaim = user?.FindFirst("avatar")?.Value;
+                            // Fallback: usar ruta guardada en usuario (si no querés claim, consulta repo o usá Url.Content("~/images/no-avatar.png"))
+                        }
+
+                        @if (isLoggedIn)
+                        {
+                            <li class="nav-item d-flex align-items-center me-3">
+                                <img src="@(avatarClaim ?? (idUsuario != null ? Url.Content("~/images/no-avatar.png") : Url.Content("~/images/no-avatar.png")))"
+                                     alt="avatar"
+                                     style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px" />
+                                <span class="navbar-text">Hola, @(string.IsNullOrEmpty(nombre) ? "Usuario" : nombre)</span>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Inquilinos" asp-action="Index">Inquilinos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Propietarios" asp-action="Index">Propietarios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Inmuebles" asp-action="Index">Inmuebles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Contratos" asp-action="Index">Contratos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Pagos" asp-action="Index">Pagos</a>
+                            </li>
+
+                            @if (rol == "Administrador")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Auditorias" asp-action="Index">Auditoría</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Usuarios" asp-action="Edit" asp-route-id="@idUsuario">Mi Perfil</a>
+                                </li>
+                            }
+
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" asp-controller="Usuarios" asp-action="Logout">Salir</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Usuarios" asp-action="Login">Login</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
+        @RenderBody()
+    </main>
+
+    <footer class="bg-light text-center py-3 mt-4">
+        <span>&copy; @DateTime.Now.Year Universidad de La Punta</span>
+    </footer>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

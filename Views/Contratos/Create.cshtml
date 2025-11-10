@@ -1,0 +1,43 @@
+@model _Net.Models.Contrato
+@{
+    ViewData["Title"] = "Nuevo Contrato";
+}
+
+<h4>Nuevo Contrato</h4>
+
+<form asp-action="Create" method="post" class="col-md-6">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="IdInquilino" class="form-label"></label>
+        <select asp-for="IdInquilino" class="form-select" asp-items="ViewBag.Inquilinos"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="IdInmueble" class="form-label"></label>
+        <select asp-for="IdInmueble" class="form-select" asp-items="ViewBag.Inmuebles"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="FechaInicio" class="form-label"></label>
+        <input asp-for="FechaInicio" type="date" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="FechaFin" class="form-label"></label>
+        <input asp-for="FechaFin" type="date" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ValorMensual" class="form-label"></label>
+        <input asp-for="ValorMensual" type="number" step="0.01" class="form-control" />
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="Vigente" class="form-check-input" />
+        <label asp-for="Vigente" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear</button>
+    <a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+</form>
